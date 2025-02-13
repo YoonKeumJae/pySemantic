@@ -5,7 +5,8 @@ from semantic_kernel.utils.logging import setup_logging
 from semantic_kernel.functions import kernel_function
 from semantic_kernel.connectors.ai.ollama import OllamaChatCompletion
 from semantic_kernel.contents.chat_history import ChatHistory
-
+from semantic_kernel.connectors.ai.function_choice_behavior import FunctionChoiceBehavior
+from plugins.UsersPlugin import UsersPlugin
 from semantic_kernel.connectors.ai.ollama import (
     OllamaPromptExecutionSettings
 )
@@ -27,10 +28,14 @@ async def main():
     #     LightsPlugin(),
     #     plugin_name="Lights",
     # )
+    kernel.add_plugin(
+        UsersPlugin(),
+        plugin_name="Users",
+    )
 
     # Enable planning
     execution_settings = OllamaPromptExecutionSettings(service_id="ollama",model_id="llama3")
-    # execution_settings.function_call_behavior = FunctionChoiceBehavior.Auto()
+    # execution_settings.function_choice_behavior = FunctionChoiceBehavior.Auto()
 
     # Create a history of the conversation
     history = ChatHistory()
